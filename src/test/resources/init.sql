@@ -1,0 +1,11 @@
+CREATE TABLE IF NOT EXISTS funkos(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    cod UUID not null,
+    myId LONG,
+    name VARCHAR(255),
+    model VARCHAR(20) CHECK (model IN('MARVEL', 'DISNEY', 'ANIME', 'OTROS')),
+    price REAL,
+    release_date DATE,
+    created_at TIMESTAMP DEFAULT  CURRENT_TIMESTAMP NOT NULL,
+    updated_at TIMESTAMP DEFAULT  CURRENT_TIMESTAMP NOT NULL
+);
