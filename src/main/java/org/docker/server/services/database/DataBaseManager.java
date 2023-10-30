@@ -7,6 +7,7 @@ import io.r2dbc.spi.Connection;
 import io.r2dbc.spi.ConnectionFactories;
 import io.r2dbc.spi.ConnectionFactory;
 import io.r2dbc.spi.Statement;
+import org.docker.common.utils.PropertiesReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import reactor.core.publisher.Mono;
@@ -80,11 +81,12 @@ public class DataBaseManager {
     private synchronized void initConfig() {
 
         logger.debug("Cargando propiedades(conf) de la base de datos");
-        String propertiesFile = ClassLoader.getSystemResource("config.properties").getFile();
-        Properties props = new Properties();
+        //String propertiesFile = ClassLoader.getSystemResource("config.properties").getFile();
+        //Properties props = new Properties();
 
         try {
-            props.load(new FileInputStream(propertiesFile));
+            PropertiesReader props = new PropertiesReader("config.properties");
+            //props.load(new FileInputStream(propertiesFile));
             url = props.getProperty("database.url");
             initCreateTables = props.getProperty("database.initTables").equals("true");
             url = props.getProperty("database.url");

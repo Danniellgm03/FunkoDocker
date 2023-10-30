@@ -207,7 +207,7 @@ public class FunkoRepositoryImpl  implements FunkoRepository{
     @Override
     public Mono<Boolean> deleteById(Integer integer) throws SQLException {
         logger.debug("Eliminando funko por id: {}", integer);
-        if(this.findById(integer).block() == null){
+        if(findById(integer).block() == null){
             return Mono.just(false);
         }
         String query = "DELETE FROM funkos WHERE id = ?";

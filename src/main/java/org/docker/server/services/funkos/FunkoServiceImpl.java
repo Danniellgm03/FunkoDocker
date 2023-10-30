@@ -114,7 +114,7 @@ public class FunkoServiceImpl implements FunkoService{
      * Guarda un funko
      * @param funko
      */
-    public Mono<Funko> saveWithoutNotify(Funko funko) throws Exception {
+    public Mono<Funko> saveWithoutNotify(Funko funko) throws SQLException {
         logger.debug("Guardando funko: {}", funko);
         return repository.save(funko).doOnSuccess(
         funkoSaved -> {
@@ -190,15 +190,15 @@ public class FunkoServiceImpl implements FunkoService{
      * Elimina un funko sin notificar
      * @param id
      */
-    private Mono<Funko> deleteByIdWithoutNotification(Integer id) throws SQLException {
+    public Mono<Funko> deleteByIdWithoutNotification(Integer id) throws SQLException {
         logger.debug("Eliminando funko con id: {}", id);
         return repository.findById(id)
                 .switchIfEmpty(Mono.error(new FunkoNoEncontradoException("No existe el funko con id: " + id)))
-                .flatMap(alumno -> {
+                .flatMap(funko -> {
                     try {
-                        return cache.delete(alumno.getId())
-                                .then(repository.deleteById(alumno.getId()))
-                                .thenReturn(alumno);
+                        return cache.delete(funko.getId())
+                                .then(repository.deleteById(funko.getId()))
+                                .thenReturn(funko);
                     } catch (SQLException e) {
                         throw new RuntimeException(e);
                     }
