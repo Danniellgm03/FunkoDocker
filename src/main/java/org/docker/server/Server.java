@@ -32,7 +32,7 @@ public class Server {
     private static final Logger logger = LoggerFactory.getLogger(Server.class);
 
 
-    public static final String TOKEN_SECRET = "MeGustanLosPepinosDeLeganesSiSonGrandesYHermosos";
+    public static final String TOKEN_SECRET = "DanielGarridoMurosIESLuisVives";
     public static final long TOKEN_EXPIRATION = 10000;
 
     private static final FunkoServiceImpl service = FunkoServiceImpl.getInstance(
