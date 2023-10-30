@@ -2,6 +2,7 @@ plugins {
     id("java")
 
     id("com.github.johnrengelman.shadow") version "7.0.0"
+    id("jacoco")
 }
 
 group = "org.docker"
@@ -39,6 +40,10 @@ tasks.shadowJar{
     manifest{
         attributes["Main-Class"] = "org.docker.server.Server"
     }
+}
+
+tasks.jacocoTestReport {
+    dependsOn(tasks.test) // tests are required to run before generating the report
 }
 
 
