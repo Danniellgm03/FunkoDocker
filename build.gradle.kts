@@ -1,5 +1,7 @@
 plugins {
     id("java")
+
+    id("com.github.johnrengelman.shadow") version "7.0.0"
 }
 
 group = "org.docker"
@@ -28,7 +30,17 @@ dependencies {
     implementation("org.slf4j:slf4j-api:1.7.30")
 
     implementation("com.auth0:java-jwt:4.2.1");
+
+    implementation("org.mindrot:jbcrypt:0.4")
+
 }
+
+tasks.shadowJar{
+    manifest{
+        attributes["Main-Class"] = "org.docker.server.Server"
+    }
+}
+
 
 tasks.test {
     useJUnitPlatform()
